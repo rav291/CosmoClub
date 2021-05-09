@@ -32,13 +32,12 @@ const CartScreen = ({ match, location, history }) => {
 
     return (
         <Row>
-
             <Col md={8}>
                 <h1>Cart</h1>
                 {cartItems.length === 0 ? <Message>Your cart is Empty <Link to='/'>Go Back</Link></Message> : (
                     <ListGroup variant='flush'>
                         {cartItems.map(item => (
-                            <ListGroup.Item key={item.product}>
+                            <ListGroup.Item key={item.product}> 
                                 <Row>
                                     <Col md={2}>
                                         <Image src={item.image} alt={item.name} fluid rounded />
@@ -72,7 +71,7 @@ const CartScreen = ({ match, location, history }) => {
                 )}
             </Col>
             <Col md={4}>
-                <Card>
+                <Card className='mt-3'>
                     <ListGroup variant='flush'>
                         <ListGroup.Item>
                             <h3>Subtotal ({cartItems.reduce((acc, item) => acc = acc + item.qty, 0)}) items</h3>

@@ -74,12 +74,15 @@ const getUserProfile = asyncHandler(async (req, res) => {
 
     try {
         const user = await User.findById(req.user);
-        res.json({
+        if(user){
+            res.json({
             _id: user._id,
             email: user.email,
             name: user.name,
             isAdmin: user.isAdmin,
         })
+        }
+      
     } catch (error) {
         console.log(error.message)
         res.status(404)
@@ -87,4 +90,36 @@ const getUserProfile = asyncHandler(async (req, res) => {
     }
 })
 
-export { authUser, registerUser, getUserProfile }
+// @desc       Update User Profile
+// @route      PUT /api/users/profile
+// @access     Private  
+
+const updateUserProfile = asyncHandler(async (req, res) => {
+
+    try {
+        const user = await User.findById(req.user);
+       
+        if(user){
+            user.name = req.body.name || user.name
+            user.email = req.body.email || user.email
+            user.password = req.body.password || user.password // since password is encrypted everytime in the model, the password
+        }                                                      // entered is also...
+
+        const updatedUser = await user.save();
+
+        res.json({
+            _id: updatedUser._id,
+            email: updatedUser.email,
+            name: updatedUser.name,
+            isAdmin: updatedUser.isAdmin,
+            token: generateToken(updatedUser._id)
+        })
+
+    } catch (error) {
+        console.log(error.message)
+        res.status(404)
+        throw new Error('User Not Found')
+    }
+})
+
+export { authUser, registerUser, getUserProfile, updateUserProfile }
