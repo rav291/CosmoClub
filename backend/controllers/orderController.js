@@ -22,7 +22,7 @@ const addOrderItems = asyncHandler(async (req, res) => {
   } else {
     const order = new Order({
       orderItems,
-      user: req.user, // this is the _id, coming from the authMiddleware, since it's a protected Route
+      user: req.user._id, // this is the _id coming from token passed to the authMiddleware, since it's a protected Route
       shippingAddress,
       paymentMethod,
       itemsPrice,
