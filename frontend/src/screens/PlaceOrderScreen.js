@@ -45,7 +45,7 @@ const PlaceOrderScreen = ({ history }) => {
       history.push(`/order/${order._id}`);
     }
     // eslint-disable-next-line
-  }, [history]);
+  }, [history, success]);
 
   return (
     <>
@@ -96,7 +96,8 @@ const PlaceOrderScreen = ({ history }) => {
                           </Link>
                         </Col>
                         <Col md={4}>
-                          {item.qty} x ${item.price} = ${item.qty * item.price}
+                          {item.qty} x ${item.price} = $
+                          {(item.qty * item.price).toFixed(2)}
                         </Col>
                       </Row>
                     </ListGroup.Item>
@@ -115,7 +116,7 @@ const PlaceOrderScreen = ({ history }) => {
               <ListGroup.Item>
                 <Row>
                   <Col>Items</Col>
-                  <Col>${cart.itemsPrice}</Col>
+                  <Col>${cart.itemsPrice.toFixed(2)}</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
@@ -143,7 +144,7 @@ const PlaceOrderScreen = ({ history }) => {
                 <Button
                   type="button"
                   className="btn btn-outline-dark"
-                  disabled={cart.cartItems.length === 0}
+                  disabled={cart.cartItems === 0}
                   onClick={placeOrderHandler}
                 >
                   Proceed To Payment
