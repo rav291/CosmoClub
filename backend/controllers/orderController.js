@@ -80,4 +80,14 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
   }
 });
 
-export { addOrderItems, getOrderById, updateOrderToPaid };
+// @desc       Getting logged in user's orders
+// @route      GET /api/orders/myOrders
+// @access     Private
+
+const getMyOrders = asyncHandler(async (req, res) => {
+  const orders = await Order.find({ user: req.user }); // req.user or req.user._id both work same, since mongoose also identifies user
+  // by it's _id
+  res.json(orders);
+});
+
+export { addOrderItems, getOrderById, updateOrderToPaid, getMyOrders };

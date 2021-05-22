@@ -40,7 +40,7 @@ const PaymentScreen = ({ history }) => {
         ></div>
       </div>
       <CheckoutSteps step1 step2 step3 />
-      <h1 className='text-dark mb-3'>Payment Method</h1>
+      <h1 className="text-dark mb-3">Payment Method</h1>
 
       <Form className="d-grid gap-5" onSubmit={submitHandler}>
         <Form.Group>
@@ -53,9 +53,9 @@ const PaymentScreen = ({ history }) => {
               checked
               id="paypal"
               className="text-dark mb-3"
-              onClick={(e) => setPaymentMethod(e.target.value)}
+              onChange={(e) => setPaymentMethod(e.target.value)}
             ></Form.Check>
-            <Form.Check
+            {/* <Form.Check
               type="radio"
               label="RazorPay"
               name="paymentMethod"
@@ -72,7 +72,7 @@ const PaymentScreen = ({ history }) => {
               id="stripe"
               className="text-dark"
               onClick={(e) => setPaymentMethod(e.target.value)}
-            ></Form.Check>
+            ></Form.Check> */}
           </Col>
         </Form.Group>
         <Container className="d-grid">
