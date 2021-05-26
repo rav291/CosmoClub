@@ -3,7 +3,7 @@ import { Container } from "react-bootstrap";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
-import "./bootstrap.min (2).css";
+import "./bootstrap.min2.css";
 import HomeScreen from "./screens/HomeScreen";
 import ProductScreen from "./screens/ProductScreen";
 import CartScreen from "./screens/CartScreen";
@@ -15,6 +15,7 @@ import PaymentScreen from "./screens/PaymentScreen";
 import PlaceOrderScreen from "./screens/PlaceOrderScreen";
 import OrderScreen from "./screens/OrderScreen";
 import UserListScreen from "./screens/UserListScreen";
+import userEditScreen from "./screens/userEditScreen";
 
 const App = () => {
   return (
@@ -32,6 +33,7 @@ const App = () => {
           <Route path="/product/:id" component={ProductScreen} />
           <Route path="/cart/:id?" component={CartScreen} />
           <Route path="/admin/userlist" component={UserListScreen} />
+          <Route path="/admin/user/:id/edit" component={userEditScreen} />
           <Route exact path="/" component={HomeScreen} />
         </Container>
       </main>

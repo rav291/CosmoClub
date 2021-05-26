@@ -2,22 +2,33 @@ import React, { useEffect } from "react";
 import { LinkContainer } from "react-router-bootstrap";
 import { Table, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { listUsers } from "../actions/userActions";
+import { deleteUser, listUsers } from "../actions/userActions";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 
-const UserListScreen = () => {
+const UserListScreen = ({ history, location }) => {
   const dispatch = useDispatch();
 
   const userList = useSelector((state) => state.userList);
   const { loading, users, error } = userList;
-  console.log(users);
-  useEffect(() => {
-    dispatch(listUsers());
-  }, [dispatch]);
 
-  const deleteHandler = (user) => {
-    console.log("Hi there");
+  const userDelete = useSelector((state) => state.userDelete);
+  const { successDelete } = userDelete;
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  useEffect(() => {
+    if (userInfo && userInfo.isAdmin === "true") {
+      dispatch(listUsers());
+    } else {
+      history.push("/login");
+    }
+  }, [dispatch, history, userInfo, successDelete]); // successDelete, so that the page refreshes after deletion of user(doesn't work)
+
+  const deleteHandler = (id) => {
+    if (window.confirm("Are You Sure")) dispatch(deleteUser(id));
+    window.location.reload(); // refreshing the page after user deletion
   };
 
   return (
@@ -28,10 +39,10 @@ const UserListScreen = () => {
       ) : error ? (
         <Message variant="danger">{error}</Message>
       ) : (
-        <Table striped bordered hover responsive className="table-sm">
+        <Table striped bordered hover responsive>
           <thead>
             <tr>
-              <th>ID</th>
+              <th>USER ID</th>
               <th>NAME</th>
               <th>EMAIL</th>
               <th>ADMIN</th>
@@ -47,14 +58,14 @@ const UserListScreen = () => {
                   <a href={`mailTo:${user.email}`}>{user.email}</a>
                 </td>
                 <td>
-                  {user.isAdmin ? (
+                  {user.isAdmin === "true" ? (
                     <i className="fas fa-check" style={{ color: "green" }}></i>
                   ) : (
                     <i className="fas fa-times" style={{ color: "red" }}></i>
                   )}
                 </td>
                 <td>
-                  <LinkContainer to={`/user/${user._id}/edit`}>
+                  <LinkContainer to={`/admin/user/${user._id}/edit`}>
                     <Button variant="light" className="btn-sm">
                       <i className="fas fa-edit"></i>
                     </Button>

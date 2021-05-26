@@ -16,10 +16,7 @@ const Header = () => {
 
   return (
     <header>
-      <Navbar
-        className="navbar navbar-expand-lg navbar-dark bg-dark"
-        collapseOnSelect
-      >
+      <Navbar expand="lg" bg="dark" variant="dark" collapseOnSelect>
         <Container>
           <LinkContainer to="/">
             <Navbar.Brand>
@@ -35,12 +32,15 @@ const Header = () => {
             </Navbar.Brand>
           </LinkContainer>
 
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav">
             <Nav>
               <LinkContainer to="/cart">
                 <Nav.Link>
-                  <i className="fas fa-shopping-cart"></i>Cart
+                  <i className="fas fa-shopping-cart">
+                    {" "}
+                    <span>Cart</span>{" "}
+                  </i>
                 </Nav.Link>
               </LinkContainer>
               {userInfo ? (
@@ -55,11 +55,14 @@ const Header = () => {
               ) : (
                 <LinkContainer to="/login">
                   <Nav.Link>
-                    <i className="fas fa-user"></i>Login
+                    <i className="fas fa-user">
+                      {" "}
+                      <span> Login</span>
+                    </i>
                   </Nav.Link>
                 </LinkContainer>
               )}
-              {userInfo && userInfo.isAdmin && (
+              {userInfo && userInfo.isAdmin === "true" && (
                 <NavDropdown title="admin" id="adminmenu">
                   <LinkContainer to="/admin/userlist">
                     <NavDropdown.Item>Users</NavDropdown.Item>

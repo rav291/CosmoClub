@@ -2,6 +2,11 @@ main {
   min-height: 80vh;
 }
 
+* {
+  font-family: "Cinzel", serif;
+  font-family: "Overlock", cursive;
+}
+
 h3 {
   padding: 1rem 0;
 }
