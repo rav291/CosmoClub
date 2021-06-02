@@ -46,7 +46,14 @@ const UserEditScreen = ({ match, history }) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(updateUser({ _id: userId, name, email, isAdmin }));
+    dispatch(
+      updateUser({
+        _id: userId,
+        name: user.name,
+        email: user.email,
+        isAdmin: user.isAdmin,
+      })
+    );
   };
 
   return (
@@ -63,7 +70,7 @@ const UserEditScreen = ({ match, history }) => {
         ) : error ? (
           <Message variant="danger">{error}</Message>
         ) : (
-          <Form onSubmit={submitHandler}>
+          <Form onSubmit={submitHandler} className="d-grid gap-2">
             <Form.Group controlId="name">
               <Form.Label>Name</Form.Label>
               <Form.Control
@@ -91,7 +98,11 @@ const UserEditScreen = ({ match, history }) => {
               ></Form.Check>
             </Form.Group>
 
-            <Button type="submit" variant="primary">
+            <Button
+              type="submit"
+              variant="primary"
+              className="btn btn-outline-dark my-4"
+            >
               SAVE
             </Button>
           </Form>

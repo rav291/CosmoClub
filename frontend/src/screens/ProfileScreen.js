@@ -128,7 +128,7 @@ const RegisterScreen = ({ location, history }) => {
                   <td>{order._id}</td>
                   <td>{order.createdAt.substring(0, 10)}</td>
                   <td>{order.totalPrice}</td>
-                  <td>
+                  <td >
                     {order.isPaid ? (
                       order.paidAt.substring(0, 10)
                     ) : (
@@ -143,7 +143,7 @@ const RegisterScreen = ({ location, history }) => {
                     )}
                   </td>
                   <td>
-                    <LinkContainer to={`/orders/${order._id}`}>
+                    <LinkContainer to={`/order/${order._id}`}>
                       <Button variant="btn-sm">View Order</Button>
                     </LinkContainer>
                   </td>

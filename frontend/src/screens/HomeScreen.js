@@ -20,7 +20,7 @@ const HomeScreen = () => {
 
   // sm, md etc are number of columns to be occupied for small, medium, large screens
   return (
-    <div className="">
+    <div>
       <h1>Latest Products</h1>
       {loading ? (
         <Loader />

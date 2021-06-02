@@ -1,9 +1,22 @@
-import express from 'express';
-import { getProducts, getProductById } from '../controllers/productController.js'
+import express from "express";
+import {
+  getProducts,
+  getProductById,
+  deleteProduct,
+  createProduct,
+  updateProduct,
+  createProductReview,
+} from "../controllers/productController.js";
+import { admin, protect } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-router.route('/').get(getProducts)           // different syntax but does the same work, as router.get('/', (req, res) => {})
-router.route('/:id').get(getProductById)
+router.route("/").get(getProducts).post(protect, admin, createProduct); // different syntax but does the same work, as router.get('/', (req, res) => {})
+router
+  .route("/:id")
+  .get(getProductById)
+  .delete(protect, admin, deleteProduct)
+  .put(protect, admin, updateProduct);
+router.route("/:id/reviews").post(protect, createProductReview );
 
-export default router
+export default router;
