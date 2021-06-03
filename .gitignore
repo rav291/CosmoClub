@@ -11,7 +11,7 @@ node_modules/
 /coverage
 
 # production
-/build
+/frontend/build
 
 # misc added .env
 .DS_Store

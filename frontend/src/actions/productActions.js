@@ -18,32 +18,39 @@ import {
   PRODUCT_CREATE_REVIEW_REQUEST,
   PRODUCT_CREATE_REVIEW_SUCCESS,
   PRODUCT_CREATE_REVIEW_FAIL,
+  PRODUCT_TOP_REQUEST,
+  PRODUCT_TOP_SUCCESS,
+  PRODUCT_TOP_FAIL,
 } from "../constants/productConstants";
 
-export const listProducts = () => async (dispatch) => {
-  // dispatch is used to dispatch actions, thunk is used to embed func. inside
+export const listProducts =
+  (keyword = "", pageNumber = "") =>
+  async (dispatch) => {
+    // dispatch is used to dispatch actions, thunk is used to embed func. inside
 
-  try {
-    dispatch({
-      type: PRODUCT_LIST_REQUEST,
-    });
+    try {
+      dispatch({
+        type: PRODUCT_LIST_REQUEST,
+      });
 
-    const { data } = await axios.get("/api/products/");
+      const { data } = await axios.get(
+        `/api/products?keyword=${keyword}&pageNumber=${pageNumber}`
+      );
 
-    dispatch({
-      type: PRODUCT_LIST_SUCCESS,
-      payload: data,
-    });
-  } catch (error) {
-    dispatch({
-      type: PRODUCT_LIST_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    });
-  }
-};
+      dispatch({
+        type: PRODUCT_LIST_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: PRODUCT_LIST_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
 
 export const listProductDetails = (id) => async (dispatch) => {
   // dispatch is used to dispatch actions, thunk is used to embed func. inside
@@ -216,3 +223,28 @@ export const createProductReview =
       });
     }
   };
+
+export const listTopProducts = () => async (dispatch) => {
+  // dispatch is used to dispatch actions, thunk is used to embed func. inside
+
+  try {
+    dispatch({
+      type: PRODUCT_TOP_REQUEST,
+    });
+
+    const { data } = await axios.get(`/api/products/top`);
+
+    dispatch({
+      type: PRODUCT_TOP_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_TOP_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};

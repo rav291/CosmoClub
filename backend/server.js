@@ -23,10 +23,6 @@ if (process.env.NODE_ENV === "development") {
 
 app.use(express.json()); // Allows us to accept json data in the body
 
-app.get("/", (req, res) => {
-  res.send("API is running");
-});
-
 app.use("/api/products", productRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/orders", orderRoutes);
@@ -40,6 +36,18 @@ const __dirname = path.resolve(); // we need dirname bcz, unlike commonJS, ES6 d
 
 app.use("/uploads", express.static(path.join(__dirname, "/uploads"))); // to make uploads folder as a static asset
 //otherwise express wont read it
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "/frontend/build")));
+  app.use("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
+  });
+} else {
+  app.get("/", (req, res) => {
+    res.send("API is running");
+  });
+}
+
 app.use(notFound); // invokes when the route passed isn't an actual one such as -> /astralis
 app.use(errorHandler); // automatically invoked when there is a error.
 
