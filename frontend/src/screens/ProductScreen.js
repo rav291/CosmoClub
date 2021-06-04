@@ -18,7 +18,6 @@ import {
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import Rating from "../components/Rating";
-import FormImpl from "react-bootstrap/esm/Form";
 import { PRODUCT_CREATE_REVIEW_RESET } from "../constants/productConstants";
 
 const ProductScreen = ({ history, match }) => {
